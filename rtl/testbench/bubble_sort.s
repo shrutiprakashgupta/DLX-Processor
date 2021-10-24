@@ -1,0 +1,33 @@
+AKA BaseArray 0 
+AKA LenArray 10*4
+
+ADDI R1 R0 BaseArray
+ADDI R2 R1 LenArray
+
+Loop1:
+SLT R3 R1 R2  
+BEQZ R0 R3 Loop1_Halt
+ADDI R3 R1 4
+Loop2:
+SLT R6 R3 R2
+BEQZ R0 R6 Loop2_Halt
+
+LW R4 R3 -4
+LW R5 R3 0
+ADDI R3 R3 4
+SLE R6 R4 R5
+BNEZ R0 R6 Loop2
+
+Swap:
+ADD R4 R4 R5
+SUB R5 R4 R5
+SUB R4 R4 R5
+SW R4 R3 -8
+SW R5 R3 -4
+J Loop2
+
+Loop2_Halt:
+SUBI R2 R2 4
+J Loop1
+
+Loop1_Halt:
